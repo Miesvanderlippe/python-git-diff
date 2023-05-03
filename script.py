@@ -1,6 +1,7 @@
 from argparse import ArgumentParser
 
 from pygit2 import init_repository, Patch
+from colorama import Fore
 
 def compare_and_print(repo_path, commit_a, commit_b):
 
@@ -13,9 +14,9 @@ def compare_and_print(repo_path, commit_a, commit_b):
             for hunk in obj.hunks:
               for line in hunk.lines:
                 if line.new_lineno == -1: 
-                    print(f"[removal line {line.old_lineno}] {line.content.strip()}")
+                    print(f"[{Fore.RED}removal line {line.old_lineno}{Fore.RESET}] {line.content.strip()}")
                 if line.old_lineno == -1: 
-                    print(f"[addition line {line.new_lineno}] {line.content.strip()}")  
+                    print(f"[{Fore.GREEN}addition line {line.new_lineno}{Fore.RESET}] {line.content.strip()}")  
 
 if __name__ == "__main__":
     parser = ArgumentParser()
